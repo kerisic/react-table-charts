@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import SalaryBarChart from "../components/SalaryBarChart";
+import IndustryDoughnut from "../components/IndustryDoughnut";
 
 const Charts = () => {
   const [data, setData] = useState({});
@@ -20,7 +21,12 @@ const Charts = () => {
   }, []);
 
   if (loaded) {
-    return <SalaryBarChart data={data} />;
+    return (
+      <>
+        <SalaryBarChart data={data} />
+        <IndustryDoughnut data={data} />
+      </>
+    );
   }
 };
 
