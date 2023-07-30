@@ -4,6 +4,7 @@ import Navigationbar from "./components/NavigationBar";
 import "./App.css";
 import Home from "./pages";
 import Table from "./pages/table";
+import Charts from "./pages/charts";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route exact path="/" exact element={<Home />} />
         <Route path="/table" element={<Table />} />
+        <Route path="/charts" element={<Charts />} />
       </Routes>
     </Router>
   );
