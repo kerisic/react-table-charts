@@ -5,9 +5,17 @@ import { MaterialReactTable } from "material-react-table";
 const Table = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [sorting, setSorting] = useState([]);
 
   const columns = useMemo(
     () => [
+      {
+        accessorKey: "id",
+        header: "Unique Identifier",
+        enableSorting: false,
+        enableColumnFilter: false,
+        enableEditing: false,
+      },
       {
         accessorFn: (row) => (row.first_name ? row.first_name : "n/a"),
         id: "first_Name",
@@ -68,24 +76,76 @@ const Table = () => {
     []
   );
 
+  const handleResponseNullValues = (res) => {
+    return res.map((person) => {
+      person.industry = person.industry === "n/a" ? null : person.industry;
+      person.salary = person.salary ? parseFloat(person.salary) : null;
+      return person;
+    });
+  };
+
+  const handleNormalSort = (res, id) => {
+    res.sort((a, b) => {
+      return a[`${id}`] === b[`${id}`]
+        ? 0
+        : a[`${id}`] === null
+        ? 1
+        : b[`${id}`] === null
+        ? -1
+        : a[`${id}`] < b[`${id}`]
+        ? -1
+        : 1;
+    });
+  };
+
+  const handleDateSort = (res) => {
+    res.sort((a, b) => {
+      a = a.date_of_birth.split("/").reverse().join("");
+      b = b.date_of_birth.split("/").reverse().join("");
+      return a > b ? 1 : a < b ? -1 : 0;
+    });
+  };
+
+  const handleSorting = (sorting, res) => {
+    const id = sorting[0].id;
+    const isDesc = sorting[0].desc;
+    if (id === "industry" || id === "salary") {
+      handleNormalSort(res, id);
+    } else if (id === "dateOfBirth") {
+      handleDateSort(res);
+    }
+    if (isDesc) {
+      res.reverse();
+    }
+    return res;
+  };
+
   const buildTable = () => {
     fetch("./mockData.json")
       .then((res) => res.json())
-      .then((res) => setData(res))
+      .then((res) => {
+        res = handleResponseNullValues(res);
+        if (sorting?.length) {
+          res = handleSorting(sorting, res);
+        }
+        setData(res);
+      })
       .finally(() => setLoading(false));
   };
 
   useEffect(() => {
     setLoading(true);
     buildTable();
-  }, []);
+  }, [sorting]);
 
   return (
     <MaterialReactTable
+      manualSorting
       columns={columns}
-      state={{ isLoading: loading }}
+      state={{ sorting, isLoading: loading }}
       initialState={{ showColumnFilters: true }}
       data={data ?? []}
+      onSortingChange={setSorting}
     />
   );
 };
