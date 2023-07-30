@@ -22,10 +22,10 @@ const Charts = () => {
 
   if (loaded) {
     return (
-      <>
+      <div className="chart-wrapper">
         <SalaryBarChart data={data} />
         <IndustryDoughnut data={data} />
-      </>
+      </div>
     );
   }
 };
