@@ -1,26 +1,31 @@
 import React from "react";
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { MaterialReactTable } from "material-react-table";
 
 const Table = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [sorting, setSorting] = useState([]);
+  const dataRef = useRef(data);
+
+  dataRef.current = data;
 
   const columns = useMemo(
     () => [
       {
         accessorKey: "id",
-        header: "Unique Identifier",
+        header: "UID",
         enableSorting: false,
         enableColumnFilter: false,
         enableEditing: false,
+        size: 50,
       },
       {
         accessorFn: (row) => (row.first_name ? row.first_name : "n/a"),
         id: "first_Name",
         header: "First Name",
         enableSorting: false,
+        enableEditing: false,
       },
       {
         accessorFn: (row) => (row.last_name ? row.last_name : "n/a"),
@@ -34,6 +39,7 @@ const Table = () => {
         header: "Email",
         enableSorting: false,
         enableColumnFilter: false,
+        enableEditing: false,
       },
       {
         accessorFn: (row) => {
@@ -138,14 +144,28 @@ const Table = () => {
     buildTable();
   }, [sorting]);
 
+  // Example of editing in line using materialReactTable, saving into the local instance instead of BE API
+  const handleSaveRow = async ({ exitEditingMode, row, values }) => {
+    const newData = dataRef.current;
+    newData[row.index]["last_name"] = values["last_name"];
+    setData([...newData]);
+    console.log("doing stuff");
+    exitEditingMode();
+    console.log("after");
+  };
+
   return (
     <MaterialReactTable
       manualSorting
+      state={{ sorting, isLoading: loading, density: "compact" }}
+      enableColumnActions={false}
       columns={columns}
-      state={{ sorting, isLoading: loading }}
+      editingMode="row"
+      enableEditing
+      onEditingRowSave={handleSaveRow}
       initialState={{ showColumnFilters: true }}
-      data={data ?? []}
       onSortingChange={setSorting}
+      data={data ?? []}
     />
   );
 };
