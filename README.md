@@ -1,70 +1,23 @@
-# Getting Started with Create React App
+# React table and charts
+<img width="600" src="https://github.com/kerisic/react-table-charts/assets/71288920/20165090-cd9f-428b-95ca-7379359daa77">
+<img width="600" src="https://github.com/kerisic/react-table-charts/assets/71288920/81d748a2-d4a9-4562-aa0a-6583e2047ccd">
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
 
-## Available Scripts
+This is a project to create a table and a set of charts for a mock dataset consisting of unique identifiers including id, name, DOB, salary, industry and years of experience. The dataset is saved within the public folder.
 
-In the project directory, you can run:
+## How to run
+1. Clone this repo.
+3. Run `npm install` for dependencies.
+4. Run `npm start` to run the app.
+5. Navigate to `http://localhost:3000/`.
 
-### `npm start`
+## How it works
+* The table uses material react table which has useful in-build functionality including sorting, filtering and searching, pagination.
+* The table however handles sorting manually for DOB, industry and annual income.
+* It also supports editing and in a normal scenario would be hooked up to send updated values to the back-end. A simple example is included if we wanted to edit the last name of a person and save it locally.
+* The charts uses react chartJs.
+* Converted DOBs to age groups as I thought it would be interesting to see it visualised against salary ranges. Possibly no links as it's looking random?!
+* The doughnut visualises proportion of people who work in each industry. In hindsight there are quite a few so some related ones could probably be combined, such as all the biotechnology sub categories into one.
+* Clicking on each industry will display a bar chart of the salary of each person who works in that industry, with a tooltip displaying the age and years of experience.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
